@@ -20,7 +20,9 @@
     line-height:1.5;font-size:15px;}
   .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px;}
   header h1{font-size:25px;margin:0 0 4px;}
-  header .sub{color:var(--muted);font-size:14px;margin-bottom:20px;}
+  header .sub{color:var(--muted);font-size:14px;margin-bottom:6px;}
+  .hint{font-size:13px;color:var(--partner);background:var(--partner-bg);border:1px solid #a5f3fc;
+    display:inline-block;border-radius:20px;padding:4px 12px;margin-bottom:20px;}
   .grid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-bottom:18px;}
   @media(max-width:820px){.grid3{grid-template-columns:1fr;}}
   .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px 16px;}
@@ -78,7 +80,41 @@
   .risk{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;font-size:14px;}
   .risk h3{margin:0 0 8px;color:var(--admin);font-size:14px;}
   footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;}
-  @media print{body{background:#fff;}.week,.box,.gate,.submit,.lane{break-inside:avoid;}}
+
+  /* clickable items */
+  .clickable{cursor:pointer;transition:background .12s,box-shadow .12s;}
+  tr.clickable:hover td{background:#eef4ff;}
+  .milestone.clickable:hover,.gate.clickable:hover,.submit.clickable:hover{
+    box-shadow:0 0 0 2px rgba(37,99,235,.35);}
+  td.tcell{position:relative;}
+  td.tcell::after{content:"›";color:var(--muted);opacity:0;margin-left:6px;font-weight:700;}
+  tr.clickable:hover td.tcell::after{opacity:1;}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(17,24,39,.55);display:flex;
+    align-items:center;justify-content:center;padding:20px;z-index:50;}
+  .overlay[hidden]{display:none;}
+  .modal{background:#fff;border-radius:14px;max-width:560px;width:100%;max-height:85vh;overflow:auto;
+    padding:24px 26px 26px;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;
+    animation:pop .14s ease-out;}
+  @keyframes pop{from{transform:translateY(8px) scale(.98);opacity:0;}to{transform:none;opacity:1;}}
+  .modal .tag-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .modal .mtag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:3px 9px;border-radius:20px;}
+  .modal h3{margin:0 0 16px;font-size:20px;line-height:1.3;}
+  .m-sec{margin-bottom:15px;}
+  .m-sec:last-child{margin-bottom:0;}
+  .m-label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--muted);margin-bottom:3px;}
+  .m-sec.ok{background:var(--clean-bg);border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;}
+  .m-sec.ok .m-label{color:var(--clean);}
+  .m-sec p{margin:0;font-size:14.5px;}
+  .modal-close{position:absolute;top:14px;right:16px;border:none;background:none;font-size:26px;
+    line-height:1;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:6px;}
+  .modal-close:hover{background:#f3f4f6;color:var(--ink);}
+
+  @media print{body{background:#fff;}.week,.box,.gate,.submit,.lane{break-inside:avoid;}
+    .hint,td.tcell::after{display:none;}.overlay{display:none!important;}}
 </style>
 </head>
 <body>
@@ -88,6 +124,7 @@
   <h1>Two-Month Plan — ECCV "BioImage Computing" Paper (you + co-author) + Personal Projects</h1>
   <div class="sub">Mon 8 Jun → Fri 7 Aug 2026 &nbsp;·&nbsp; Submission: <b>Mon 13 Jul</b> &nbsp;·&nbsp; Draft-to-supervisors gate: <b>Tue 7 Jul</b> &nbsp;·&nbsp; Written in Word on Google Drive</div>
 </header>
+<div class="hint">💡 Click any task, milestone or gate for what to do, why, and success criteria.</div>
 
 <div class="grid3">
   <div class="box">
@@ -140,27 +177,27 @@
     <div><span class="wk">Week 1</span><span class="dates">Mon 8 – Sun 14 Jun</span></div>
     <div class="theme">FOUNDATION — lock the story, fire off the partner request</div>
   </div>
-  <div class="milestone dep"><span>⚑</span><b>Mon 8 Jun:</b>&nbsp;send partner-team data/analysis request with a hard deadline (16 Jun). &nbsp;·&nbsp; <b>Roles locked, shared Word doc live.</b></div>
+  <div class="milestone dep clickable" data-id="w1-ms"><span>⚑</span><b>Mon 8 Jun:</b>&nbsp;send partner-team data/analysis request with a hard deadline (16 Jun). &nbsp;·&nbsp; <b>Roles locked, shared Word doc live.</b></div>
   <div class="lanes">
     <div class="lane you">
       <h4><span class="who">You</span><span class="wh">~9h paper · 3h personal</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Define narrative + the 2-3 claims (ziram → marker → visual phenotype).</td><td class="hrs">3.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Figure plan: which result → which figure/table.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Request data from partner team; specify exactly what you need + deadline.</td><td class="hrs">1.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Kickoff + agree section ownership with co-author.</td><td class="hrs">1.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Scaffold Methods from known protocols (start before partner data lands).</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Unemployment claim (start now), nursery, health reimbursement.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w1-narrative"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Define narrative + the 2-3 claims (ziram → marker → visual phenotype).</td><td class="hrs">3.0</td></tr>
+        <tr class="clickable" data-id="w1-figplan"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Figure plan: which result → which figure/table.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w1-partner-request"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Request data from partner team; specify exactly what you need + deadline.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w1-kickoff"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Kickoff + agree section ownership with co-author.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w1-methods-scaffold"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Scaffold Methods from known protocols (start before partner data lands).</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w1-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w1-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Unemployment claim (start now), nursery, health reimbursement.</td><td class="hrs">1.0</td></tr>
       </table>
     </div>
     <div class="lane co">
       <h4><span class="who">Co-author</span><span class="wh">~7.5h</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Set up Word master doc on Drive, Zotero library, shared folder, section stubs.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Kickoff with you; confirm scope of Related Work + Discussion.</td><td class="hrs">1.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Literature search + Related Work notes.</td><td class="hrs">3.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Begin Related Work write-up.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w1c-setup"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Set up Word master doc on Drive, Zotero library, shared folder, section stubs.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w1c-kickoff"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Kickoff with you; confirm scope of Related Work + Discussion.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w1c-litsearch"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Literature search + Related Work notes.</td><td class="hrs">3.0</td></tr>
+        <tr class="clickable" data-id="w1c-rw-start"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Begin Related Work write-up.</td><td class="hrs">2.0</td></tr>
       </table>
     </div>
   </div>
@@ -172,25 +209,25 @@
     <div><span class="wk">Week 2</span><span class="dates">Mon 15 – Sun 21 Jun</span></div>
     <div class="theme">FIGURES + RELATED WORK — the biggest time sink, tackled first</div>
   </div>
-  <div class="milestone dep"><span>⚑</span><b>Tue 16 Jun:</b>&nbsp;partner data due. If not in hand by Wed, escalate and shift co-author onto extra figures. &nbsp;·&nbsp; <b>Related Work complete.</b></div>
+  <div class="milestone dep clickable" data-id="w2-ms"><span>⚑</span><b>Tue 16 Jun:</b>&nbsp;partner data due. If not in hand by Wed, escalate and shift co-author onto extra figures. &nbsp;·&nbsp; <b>Related Work complete.</b></div>
   <div class="lanes">
     <div class="lane you">
       <h4><span class="who">You</span><span class="wh">~12h paper · 3h personal</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Build core/claim figures from raw results (the heavy item).</td><td class="hrs">6.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Methods draft, incorporating partner-team inputs.</td><td class="hrs">3.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Outline + start Results.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Chase partner team if delivery slips.</td><td class="hrs">1.0</td></tr>
-        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w2-corefigs"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Build core/claim figures from raw results (the heavy item).</td><td class="hrs">6.0</td></tr>
+        <tr class="clickable" data-id="w2-methods-draft"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Methods draft, incorporating partner-team inputs.</td><td class="hrs">3.0</td></tr>
+        <tr class="clickable" data-id="w2-results-start"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Outline + start Results.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w2-chase"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Chase partner team if delivery slips.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w2-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w2-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
       </table>
     </div>
     <div class="lane co">
       <h4><span class="who">Co-author</span><span class="wh">~8h</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Finish Related Work write-up (section complete).</td><td class="hrs">3.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Build secondary / supplementary figures.</td><td class="hrs">4.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Sanity-check your figure plan for consistency.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w2c-rw-finish"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Finish Related Work write-up (section complete).</td><td class="hrs">3.0</td></tr>
+        <tr class="clickable" data-id="w2c-secfigs"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Build secondary / supplementary figures.</td><td class="hrs">4.0</td></tr>
+        <tr class="clickable" data-id="w2c-figcheck"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Sanity-check your figure plan for consistency.</td><td class="hrs">1.0</td></tr>
       </table>
     </div>
   </div>
@@ -202,26 +239,26 @@
     <div><span class="wk">Week 3</span><span class="dates">Mon 22 – Sun 28 Jun</span></div>
     <div class="theme">RESULTS + METHODS FINALISE</div>
   </div>
-  <div class="milestone"><span>★</span><b>End W3 (Sun 28 Jun):</b>&nbsp;co-author sections delivered (Related Work, Discussion draft, secondary figures); Methods &amp; Results drafted.</div>
+  <div class="milestone clickable" data-id="w3-ms"><span>★</span><b>End W3 (Sun 28 Jun):</b>&nbsp;co-author sections delivered (Related Work, Discussion draft, secondary figures); Methods &amp; Results drafted.</div>
   <div class="lanes">
     <div class="lane you">
       <h4><span class="who">You</span><span class="wh">~12.75h paper · 3.5h personal</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Results: interpret each figure, correlations + effect sizes, ziram signal.</td><td class="hrs">5.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Finalise Methods (lock once partner inputs confirmed).</td><td class="hrs">5.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Polish core figures + captions.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Sync with co-author; reconcile terminology/notation.</td><td class="hrs">0.75</td></tr>
-        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
-        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w3-results"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Write Results: interpret each figure, correlations + effect sizes, ziram signal.</td><td class="hrs">5.0</td></tr>
+        <tr class="clickable" data-id="w3-methods-final"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Finalise Methods (lock once partner inputs confirmed).</td><td class="hrs">5.0</td></tr>
+        <tr class="clickable" data-id="w3-figpolish"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Polish core figures + captions.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w3-sync"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Sync with co-author; reconcile terminology/notation.</td><td class="hrs">0.75</td></tr>
+        <tr class="clickable" data-id="w3-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+        <tr class="clickable" data-id="w3-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
       </table>
     </div>
     <div class="lane co">
       <h4><span class="who">Co-author</span><span class="wh">~5.25h</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Draft Discussion / Conclusion (limitations, future work).</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Draft supplementary results text.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Polish secondary figures.</td><td class="hrs">1.0</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Sync with you.</td><td class="hrs">0.75</td></tr>
+        <tr class="clickable" data-id="w3c-discussion"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Draft Discussion / Conclusion (limitations, future work).</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w3c-suppresults"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Draft supplementary results text.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w3c-secfig-polish"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Polish secondary figures.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w3c-sync"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Sync with you.</td><td class="hrs">0.75</td></tr>
       </table>
     </div>
   </div>
@@ -233,30 +270,30 @@
     <div><span class="wk">Week 4</span><span class="dates">Mon 29 Jun – Sun 5 Jul</span></div>
     <div class="theme">FULL DRAFT — Intro, Abstract, assemble everything</div>
   </div>
-  <div class="milestone"><span>★</span><b>Sun 5 Jul:</b>&nbsp;complete, integrated draft done — 2-day cushion before the supervisor gate.</div>
+  <div class="milestone clickable" data-id="w4-ms"><span>★</span><b>Sun 5 Jul:</b>&nbsp;complete, integrated draft done — 2-day cushion before the supervisor gate.</div>
   <div class="lanes">
     <div class="lane you">
       <h4><span class="who">You</span><span class="wh">~11.5h paper · 3h personal</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Introduction (ziram as toxicant, medaka model, the gap).</td><td class="hrs">4.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Abstract.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Full read-through + assemble complete draft.</td><td class="hrs">4.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Integrate co-author sections; reconcile flow + terminology.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+        <tr class="clickable" data-id="w4-intro"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Write Introduction (ziram as toxicant, medaka model, the gap).</td><td class="hrs">4.0</td></tr>
+        <tr class="clickable" data-id="w4-abstract"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Write Abstract.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w4-readthrough"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Full read-through + assemble complete draft.</td><td class="hrs">4.0</td></tr>
+        <tr class="clickable" data-id="w4-integrate"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Integrate co-author sections; reconcile flow + terminology.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w4-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w4-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
       </table>
     </div>
     <div class="lane co">
       <h4><span class="who">Co-author</span><span class="wh">~3.5h</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Polish Discussion against the assembled draft.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Internal review of your Methods + Results for clarity.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w4c-discussion-polish"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Polish Discussion against the assembled draft.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w4c-internal-review"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Internal review of your Methods + Results for clarity.</td><td class="hrs">2.0</td></tr>
       </table>
     </div>
   </div>
 </div>
 
-<div class="gate">
+<div class="gate clickable" data-id="gate-7jul">
   <b>★ HARD GATE — Tue 7 Jul:</b> complete draft in both supervisors' hands, with a stated "comments by 10 Jul" request. Miss this and the revision window collapses. This is the date that actually matters.
 </div>
 
@@ -266,30 +303,30 @@
     <div><span class="wk">Week 5</span><span class="dates">Mon 6 – Sun 12 Jul</span></div>
     <div class="theme">REVISION + SUBMIT — crunch week, cleaning &amp; admin dropped</div>
   </div>
-  <div class="milestone dep"><span>⚑</span><b>Tue 7 Jul</b> send to supervisors &nbsp;·&nbsp; <b>7–10 Jul</b> they review &nbsp;·&nbsp; <b>10–12 Jul</b> you revise.</div>
+  <div class="milestone dep clickable" data-id="w5-ms"><span>⚑</span><b>Tue 7 Jul</b> send to supervisors &nbsp;·&nbsp; <b>7–10 Jul</b> they review &nbsp;·&nbsp; <b>10–12 Jul</b> you revise.</div>
   <div class="lanes">
     <div class="lane you">
       <h4><span class="who">You</span><span class="wh">~12h paper · 0h personal (dropped)</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Mon–Tue: final polish, then send to supervisors (7 Jul).</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Incorporate supervisor + co-author feedback.</td><td class="hrs">3.5</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Final figures + formatting to workshop spec; page-limit check.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Submission dry-run on the portal (account, metadata, files, supp.).</td><td class="hrs">2.0</td></tr>
-        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Buffer for the inevitable.</td><td class="hrs">2.5</td></tr>
+        <tr class="clickable" data-id="w5-send"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Mon–Tue: final polish, then send to supervisors (7 Jul).</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w5-feedback"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Incorporate supervisor + co-author feedback.</td><td class="hrs">3.5</td></tr>
+        <tr class="clickable" data-id="w5-finalfigs"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Final figures + formatting to workshop spec; page-limit check.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w5-dryrun"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Submission dry-run on the portal (account, metadata, files, supp.).</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w5-buffer"><td class="ic"><i class="pill p-paper"></i></td><td class="tcell">Buffer for the inevitable.</td><td class="hrs">2.5</td></tr>
       </table>
     </div>
     <div class="lane co">
       <h4><span class="who">Co-author</span><span class="wh">~5h</span></h4>
       <table class="tasks">
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Incorporate feedback on their sections.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Help with final figures / formatting.</td><td class="hrs">1.5</td></tr>
-        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Independent full proofread (fresh eyes) before submission.</td><td class="hrs">2.0</td></tr>
+        <tr class="clickable" data-id="w5c-feedback"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Incorporate feedback on their sections.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w5c-finalfigs"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Help with final figures / formatting.</td><td class="hrs">1.5</td></tr>
+        <tr class="clickable" data-id="w5c-proofread"><td class="ic"><i class="pill p-partner"></i></td><td class="tcell">Independent full proofread (fresh eyes) before submission.</td><td class="hrs">2.0</td></tr>
       </table>
     </div>
   </div>
 </div>
 
-<div class="submit">
+<div class="submit clickable" data-id="submit-13jul">
   <span class="big">▶ Mon 13 Jul — SUBMIT</span>
   <span>Upload in the morning. Portals slow to a crawl at deadline; do not leave it to the evening.</span>
 </div>
@@ -308,10 +345,10 @@
   </div>
   <div class="single-lane">
     <table class="tasks">
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Paint stairs — prep + sessions 1-2 (sanding, masking, first coats).</td><td class="hrs">4.0</td></tr>
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture: resume planning/buying (recurring 2h slot, now active).</td><td class="hrs">2.0</td></tr>
-      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
-      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr class="clickable" data-id="w6-paint"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Paint stairs — prep + sessions 1-2 (sanding, masking, first coats).</td><td class="hrs">4.0</td></tr>
+      <tr class="clickable" data-id="w6-furniture"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Furniture: resume planning/buying (recurring 2h slot, now active).</td><td class="hrs">2.0</td></tr>
+      <tr class="clickable" data-id="w6-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+      <tr class="clickable" data-id="w6-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
     </table>
   </div>
 </div>
@@ -324,10 +361,10 @@
   </div>
   <div class="single-lane">
     <table class="tasks">
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Paint stairs — sessions 3-4 (second coats, touch-ups, reassemble).</td><td class="hrs">4.0</td></tr>
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture: order / collect / assemble.</td><td class="hrs">2.0</td></tr>
-      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
-      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr class="clickable" data-id="w7-paint"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Paint stairs — sessions 3-4 (second coats, touch-ups, reassemble).</td><td class="hrs">4.0</td></tr>
+      <tr class="clickable" data-id="w7-furniture"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Furniture: order / collect / assemble.</td><td class="hrs">2.0</td></tr>
+      <tr class="clickable" data-id="w7-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+      <tr class="clickable" data-id="w7-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
     </table>
   </div>
 </div>
@@ -340,10 +377,10 @@
   </div>
   <div class="single-lane">
     <table class="tasks">
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture wrap-up; overflow from painting if needed.</td><td class="hrs">2.0</td></tr>
-      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
-      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Free slack — rest, or pull anything forward.</td><td class="hrs">—</td></tr>
+      <tr class="clickable" data-id="w8-furniture"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Furniture wrap-up; overflow from painting if needed.</td><td class="hrs">2.0</td></tr>
+      <tr class="clickable" data-id="w8-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+      <tr class="clickable" data-id="w8-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr class="clickable" data-id="w8-slack"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Free slack — rest, or pull anything forward.</td><td class="hrs">—</td></tr>
     </table>
   </div>
 </div>
@@ -356,9 +393,9 @@
   </div>
   <div class="single-lane">
     <table class="tasks">
-      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
-      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
-      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Contingency for anything that slipped.</td><td class="hrs">—</td></tr>
+      <tr class="clickable" data-id="w9-clean"><td class="ic"><i class="pill p-clean"></i></td><td class="tcell">Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+      <tr class="clickable" data-id="w9-admin"><td class="ic"><i class="pill p-admin"></i></td><td class="tcell">Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr class="clickable" data-id="w9-contingency"><td class="ic"><i class="pill p-personal"></i></td><td class="tcell">Contingency for anything that slipped.</td><td class="hrs">—</td></tr>
     </table>
   </div>
 </div>
@@ -377,5 +414,143 @@
 <footer>Generated 7 Jun 2026 · estimates deliberately conservative · adjust as reality lands. Partner-team deliverable + lead time are assumed — confirm and I will re-time the dependency.</footer>
 
 </div>
+
+<!-- ===== MODAL ===== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <button class="modal-close" id="m-close" aria-label="Close">&times;</button>
+    <div class="tag-row"><span class="mtag" id="m-tag"></span></div>
+    <h3 id="m-title"></h3>
+    <div class="m-sec"><span class="m-label">What to do</span><p id="m-what"></p></div>
+    <div class="m-sec"><span class="m-label">Why it matters</span><p id="m-why"></p></div>
+    <div class="m-sec ok"><span class="m-label">Success criteria</span><p id="m-success"></p></div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  /* ---------- WEEK 1 ---------- */
+  "w1-ms":{t:"W1 milestone — request sent, roles locked",c:"partner",d:"By Mon 8 Jun the partner request is out the door; by end of week the author split is written and the shared Word doc is live.",w:"These two things, if late, delay everything downstream — the partner data feeds your figures and Methods, and unclear roles cause duplicated work.",s:"Partner request acknowledged by a named contact; a written role split and a live shared doc both exist."},
+  "w1-narrative":{t:"Define narrative + claims",c:"paper",d:"Write a short thesis paragraph and a bullet list of the 2-3 specific claims your data can defend (e.g. 'marker X correlates with phenotype Y under ziram at dose Z').",w:"Every later section, figure and sentence either supports a claim or gets cut. Deciding this first prevents writing prose you'll throw away.",s:"A one-paragraph thesis + 2-3 claims, each mapped to the result that backs it, agreed with your co-author."},
+  "w1-figplan":{t:"Figure plan",c:"paper",d:"List every result you have; decide which becomes a main figure, a table, or supplementary, and sketch each panel's axes and message.",w:"Figures are your biggest time sink. A plan stops you polishing figures you won't use and exposes gaps before you build anything.",s:"A numbered figure list within the workshop limit, each with a one-line 'this shows…' caption and its source data identified."},
+  "w1-partner-request":{t:"Request data from partner team",c:"partner",d:"Send a written request stating the exact deliverable (format, which samples, which analysis) and a hard deadline of 16 Jun, to a named contact.",w:"They are your critical external dependency. A vague or late ask is the single most likely cause of the whole plan slipping.",s:"Request sent in writing with a specific deadline and a contact who has acknowledged it."},
+  "w1-kickoff":{t:"Kickoff + section ownership",c:"paper",d:"30-60 min with your co-author to lock who owns which section and the doc conventions (citation style, figure naming, terminology).",w:"The two-person split only saves time if boundaries are unambiguous; this prevents duplicated or contradictory work.",s:"A short written division-of-labour (who / what / by when) both of you have agreed in the shared doc."},
+  "w1-methods-scaffold":{t:"Scaffold Methods",c:"paper",d:"Draft the parts of Methods you already control — imaging setup, fish husbandry, ziram exposure protocol — without waiting on partner data.",w:"De-risks W2: when the partner analysis lands you only slot it in, rather than starting Methods from scratch.",s:"Partner-independent Methods subsections in first-draft prose, with clear [TODO: partner analysis] placeholders."},
+  "w1-clean":{t:"Weekly clean",c:"clean",d:"Vacuum, floors, bathroom, and one load of laundry, in a single block.",w:"Baseline upkeep; bundling it keeps it from leaking across your three limited work days.",s:"Done in one ~2h block and not revisited until next week."},
+  "w1-admin":{t:"Admin — start unemployment claim",c:"admin",d:"Initiate the unemployment claim (time-sensitive after contract end), and progress nursery + health-reimbursement items.",w:"Unemployment claims often carry deadlines tied to the contract end date; starting now avoids losing entitlement.",s:"Claim submitted or formally initiated; nursery and reimbursement each done or with a dated next action."},
+  "w1c-setup":{t:"Set up the shared workspace",c:"partner",d:"Create the Word master doc on Google Drive, set up Zotero (shared library + Word plugin), the shared figure folder, and empty section stubs.",w:"A clean shared structure prevents version chaos and broken citations once both of you write in parallel.",s:"One canonical editable doc, working Zotero citations, and folders named by an agreed convention."},
+  "w1c-kickoff":{t:"Kickoff (co-author side)",c:"partner",d:"Join the kickoff and confirm the scope of Related Work and Discussion, plus the key papers to cover.",w:"Shared understanding of boundaries is what makes the parallel work non-overlapping.",s:"Co-author leaves with a clear, written scope for their sections."},
+  "w1c-litsearch":{t:"Literature search",c:"partner",d:"Search and collect references on medaka toxicology models, marker–phenotype correlation methods, and ziram / dithiocarbamate toxicity; add to Zotero with notes.",w:"Related Work quality depends on coverage; searching before writing avoids mid-paragraph rabbit holes.",s:"~15-30 relevant references in Zotero, grouped by theme, each with a one-line relevance note."},
+  "w1c-rw-start":{t:"Begin Related Work",c:"partner",d:"Start drafting Related Work from the collected references, organised by the themes above.",w:"Starting early spreads the ~8h effort and surfaces framing questions while the narrative can still flex.",s:"A structured first draft covering the prior-work themes, even if rough."},
+
+  /* ---------- WEEK 2 ---------- */
+  "w2-ms":{t:"Partner data due (16 Jun)",c:"partner",d:"Partner deliverable expected Tue 16 Jun. If not in hand by Wed 17, escalate and move the co-author onto extra figures.",w:"Methods and the correlation figures depend on it; every day late compresses W3.",s:"Data received and validated, OR escalation triggered and the figure-backfill contingency already in motion."},
+  "w2-corefigs":{t:"Build core / claim figures",c:"paper",d:"Build the main figures that carry your claims — correlation plots, phenotype panels, dose-response — from the raw results.",w:"These are the evidence for your thesis and the slowest thing to get right; doing them first exposes any data problems early.",s:"A draft of every claim figure exists, readable, with real data and provisional captions."},
+  "w2-methods-draft":{t:"Methods draft (analysis part)",c:"paper",d:"Write the analysis portion of Methods using the partner inputs — marker quantification, the correlation / statistical method.",w:"Reviewers judge rigour here; it must be precise enough for someone to reproduce.",s:"A full Methods first draft with no placeholders left for the parts you now have data for."},
+  "w2-results-start":{t:"Outline + start Results",c:"paper",d:"Outline the Results section and write the opening that walks the reader through the main figures.",w:"Writing interpretation while the figures are fresh keeps it accurate and spreads the W3 load.",s:"Results outline plus the narrative for the first figure written."},
+  "w2-chase":{t:"Chase the partner team",c:"partner",d:"If the data hasn't arrived on time, follow up directly and escalate to your contact's manager if needed.",w:"Politely persistent chasing is usually what unblocks external teams; silence guarantees slippage.",s:"Either data in hand, or a firm committed delivery date in writing."},
+  "w2-clean":{t:"Weekly clean",c:"clean",d:"Vacuum, floors, bathroom, one laundry load, in one block.",w:"Keeps the household baseline without expanding into paper time.",s:"Done in ~2h; not revisited this week."},
+  "w2-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin — claim status, nursery, reimbursements.",w:"Small recurring items balloon if ignored.",s:"No admin item left without a next action."},
+  "w2c-rw-finish":{t:"Finish Related Work",c:"partner",d:"Complete the Related Work section to final-draft quality.",w:"Finishing by end of W2 takes it off the critical path before the co-author is needed on figures and review.",s:"Related Work reads as a finished section, citations resolve, and the author signs off."},
+  "w2c-secfigs":{t:"Secondary / supplementary figures",c:"partner",d:"Build the secondary and supplementary figures — controls, extra markers, QC plots.",w:"Offloading these keeps your hours on the claim-critical figures and Methods.",s:"Supplementary figures drafted with captions, in the same style as the main figures."},
+  "w2c-figcheck":{t:"Figure consistency check",c:"partner",d:"Review the figure plan and main figures for consistency — units, colour scheme, labelling.",w:"A second pair of eyes catches inconsistencies cheaply now, versus during revision.",s:"A short fix list, or a sign-off that the figures are consistent."},
+
+  /* ---------- WEEK 3 ---------- */
+  "w3-ms":{t:"W3 milestone — co-author sections delivered",c:"paper",d:"By Sun 28 Jun: Related Work, Discussion draft and secondary figures are handed over; your Methods and Results are drafted.",w:"W4 assembly can only start once these pieces exist.",s:"All listed pieces are in the shared doc at draft quality."},
+  "w3-results":{t:"Write Results",c:"paper",d:"Write the full Results: interpret each figure, report correlations and effect sizes, and state the ziram toxicity signal plainly.",w:"This is where claims become evidence-backed findings — the analytical heart of the paper.",s:"Every main figure is described and interpreted, numbers match the figures, and the W1 claims are supported or explicitly revised."},
+  "w3-methods-final":{t:"Finalise Methods",c:"paper",d:"Lock Methods once partner inputs are confirmed — parameters, software versions, statistics.",w:"Loose Methods invite reviewer criticism and reproducibility doubts.",s:"Methods is complete, precise, and internally consistent with Results."},
+  "w3-figpolish":{t:"Polish core figures",c:"paper",d:"Polish the core figures and write final captions — labels, fonts, colourblind-safe palette, panel letters.",w:"Clear figures do much of the persuading; sloppy ones undercut good results.",s:"Main figures are publication-quality and understandable from the caption alone."},
+  "w3-sync":{t:"Terminology sync",c:"paper",d:"Short sync with the co-author to reconcile terminology and notation across sections.",w:"Parallel writing drifts; aligning now avoids contradictions in the assembled draft.",s:"An agreed glossary of terms/symbols, with both sections using it."},
+  "w3-clean":{t:"Weekly clean + dedusting",c:"clean",d:"Weekly clean plus the 3-weekly dedusting.",w:"Keeps the baseline without expanding into paper time.",s:"Done in one ~2.5h block."},
+  "w3-admin":{t:"Admin follow-ups",c:"admin",d:"Progress any open admin items.",w:"Recurring items balloon if ignored.",s:"No admin item older than ~2 weeks without a next action."},
+  "w3c-discussion":{t:"Draft Discussion / Conclusion",c:"partner",d:"Draft the Discussion and Conclusion — interpret findings, state limitations honestly, suggest future work.",w:"Reviewers weight honest limitations; drafting early lets it mature.",s:"A first-draft Discussion covering implications, limitations and next steps."},
+  "w3c-suppresults":{t:"Draft supplementary results text",c:"partner",d:"Write the prose describing the supplementary results.",w:"Offloads writing from you and keeps the supplement coherent with the main text.",s:"Supplementary results described in prose, each linked to its figure."},
+  "w3c-secfig-polish":{t:"Polish secondary figures",c:"partner",d:"Polish the secondary figures to match the main-figure style and finalise captions.",w:"Consistency across the whole figure set signals care to reviewers.",s:"Secondary figures finalised with captions done."},
+  "w3c-sync":{t:"Terminology sync (co-author side)",c:"partner",d:"Join the terminology sync; align Related Work / Discussion wording with Methods / Results.",w:"Same reason — avoid contradictions across sections.",s:"Co-author's sections use the agreed terms."},
+
+  /* ---------- WEEK 4 ---------- */
+  "w4-ms":{t:"W4 milestone — complete draft (5 Jul)",c:"paper",d:"A complete, integrated draft assembled by Sun 5 Jul, giving a 2-day cushion before the supervisor gate.",w:"The cushion absorbs assembly surprises so the 7 Jul gate holds.",s:"A full draft with all sections present and integrated, reading end-to-end."},
+  "w4-intro":{t:"Write Introduction",c:"paper",d:"Write the Introduction: motivate ziram as an environmental toxicant, introduce the medaka model, state the gap and your contribution.",w:"The intro sells the paper in the first minute and frames everything that follows.",s:"Intro ends with a clear contribution statement matching your W1 claims."},
+  "w4-abstract":{t:"Write Abstract",c:"paper",d:"Write the Abstract — problem, method, key result with a number, significance.",w:"It's the most-read part and what reviewers use to bid; it must stand alone.",s:"Within the word limit, contains a concrete result, and makes no claim not in the paper."},
+  "w4-readthrough":{t:"Read-through + assemble",c:"paper",d:"Read the whole paper start to finish; fix flow, transitions and references, and assemble the complete draft.",w:"Sections written in parallel rarely connect smoothly; one continuous pass fixes the seams.",s:"Reads as one coherent piece, references resolve, no orphaned placeholders remain."},
+  "w4-integrate":{t:"Integrate co-author sections",c:"paper",d:"Merge the co-author's sections in, reconcile flow and terminology, and resolve any overlaps.",w:"Integration is where two-author papers gain or lose coherence.",s:"Co-author sections sit seamlessly, with no duplicated content or contradictions."},
+  "w4-clean":{t:"Weekly clean",c:"clean",d:"Vacuum, floors, bathroom, laundry, one block.",w:"Baseline upkeep.",s:"Done in ~2h."},
+  "w4-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin items.",w:"Recurring items balloon if ignored.",s:"No item without a next action."},
+  "w4c-discussion-polish":{t:"Polish Discussion vs final draft",c:"partner",d:"Refine the Discussion against the now-assembled draft so it reflects the final Results.",w:"Discussion written before final Results often overstates or misses things.",s:"Discussion matches the final findings and limitations."},
+  "w4c-internal-review":{t:"Internal review of Methods + Results",c:"partner",d:"Critically read your Methods and Results for clarity and gaps before the supervisors see it.",w:"An internal pass catches obvious issues so supervisor time goes to substance.",s:"A list of clarity fixes, with the worst fixed before 7 Jul."},
+
+  /* ---------- GATE / W5 / SUBMIT ---------- */
+  "gate-7jul":{t:"HARD GATE — draft to supervisors (7 Jul)",c:"gate",d:"Send the complete draft to both supervisors with an explicit 'comments by 10 Jul' request.",w:"This is the true deadline. Miss it and your revision window collapses before the 13 Jul submission.",s:"Both supervisors have the draft and have acknowledged the 10 Jul comment date."},
+  "w5-ms":{t:"W5 flow — send · review · revise",c:"paper",d:"7 Jul send · 7-10 Jul supervisors review · 10-12 Jul you revise.",w:"A defined sequence keeps the crunch week from drifting.",s:"Each stage hits its dates; revisions complete by 12 Jul."},
+  "w5-send":{t:"Final polish + send (7 Jul)",c:"paper",d:"Final Mon-Tue polish, then send to the supervisors on 7 Jul.",w:"A clean draft earns substantive feedback rather than comments on typos.",s:"Sent on 7 Jul with nothing embarrassing left in."},
+  "w5-feedback":{t:"Incorporate feedback",c:"paper",d:"Work through supervisor and co-author comments; push back where you disagree, with reasons.",w:"Reviewers' suggestions usually improve the paper, but you own the final call.",s:"Every comment addressed or explicitly declined with rationale; tracked changes resolved."},
+  "w5-finalfigs":{t:"Final figures + formatting",c:"paper",d:"Final figure and formatting pass to the workshop's spec; check the page limit.",w:"Desk rejects happen over formatting and length — entirely avoidable.",s:"Paper meets format and length rules exactly; figures final."},
+  "w5-dryrun":{t:"Submission dry-run",c:"paper",d:"Do a full dry-run on the submission portal — create the account, fill metadata, upload the PDF and supplement.",w:"Portals surprise you with extra forms and file rules; doing it early avoids deadline-day panic.",s:"Submission staged with all fields and files accepted; you know exactly what's left for 13 Jul."},
+  "w5-buffer":{t:"Crunch-week buffer",c:"paper",d:"Reserve time for the unexpected — a late comment, a figure redo, a reference fix.",w:"Crunch weeks always have surprises; unallocated time is how you absorb them.",s:"Buffer exists and hasn't been pre-spent."},
+  "w5c-feedback":{t:"Co-author: incorporate feedback",c:"partner",d:"Incorporate feedback on the co-author's own sections.",w:"Keeps revision parallel so you aren't the bottleneck.",s:"Their sections reflect the supervisor comments."},
+  "w5c-finalfigs":{t:"Co-author: final figures help",c:"partner",d:"Help with final figures and formatting.",w:"Splits the tedious final pass.",s:"Assigned figures and formatting done to spec."},
+  "w5c-proofread":{t:"Independent proofread",c:"partner",d:"Do an independent full proofread with fresh eyes before submission.",w:"The author who wrote it can't see its typos; a second reader catches them.",s:"A markup of typos and inconsistencies, all fixed before submit."},
+  "submit-13jul":{t:"SUBMIT (13 Jul)",c:"gate",d:"Upload the final PDF and supplement on the morning of 13 Jul.",w:"Deadline-day portals slow and crash; a morning submission removes that risk.",s:"Confirmation email received and the submission shows complete in the portal."},
+
+  /* ---------- PHASE 2 ---------- */
+  "w6-paint":{t:"Paint stairs — sessions 1-2",c:"personal",d:"Prep and first coats: sand, clean, mask, prime / first-coat the stairs (2 of 4 sessions).",w:"Deferred from the sprint; the post-submission lull is the right time for a disruptive job.",s:"Stairs prepped and first coat on, drying."},
+  "w6-furniture":{t:"Furniture — resume",c:"personal",d:"Restart furniture planning/buying — measure, shortlist, order.",w:"The recurring 2h slot reactivates now the paper is in.",s:"Decisions made or orders placed for at least one item."},
+  "w6-clean":{t:"Weekly clean + dedusting",c:"clean",d:"Weekly clean plus 3-weekly dedusting.",w:"Baseline upkeep.",s:"Done in ~2.5h."},
+  "w6-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin items.",w:"Recurring items balloon if ignored.",s:"No item without a next action."},
+  "w7-paint":{t:"Paint stairs — sessions 3-4",c:"personal",d:"Second coats, touch-ups, reassemble (final 2 of 4 sessions).",w:"Finishes the 8h painting job within the post-deadline window.",s:"Stairs fully painted and back in use."},
+  "w7-furniture":{t:"Furniture — order / assemble",c:"personal",d:"Order, collect and assemble the chosen furniture.",w:"Recurring slot; keeps the home setup progressing.",s:"At least one item delivered and assembled."},
+  "w7-clean":{t:"Weekly clean",c:"clean",d:"Vacuum, floors, bathroom, laundry.",w:"Baseline upkeep.",s:"Done in ~2h."},
+  "w7-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin items.",w:"Recurring items balloon if ignored.",s:"No item without a next action."},
+  "w8-furniture":{t:"Furniture wrap-up",c:"personal",d:"Wrap up furniture, plus any painting overflow.",w:"Catch-up week to clear remaining personal items.",s:"Furniture list closed out or down to optional extras."},
+  "w8-clean":{t:"Weekly clean",c:"clean",d:"Vacuum, floors, bathroom, laundry.",w:"Baseline upkeep.",s:"Done in ~2h."},
+  "w8-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin items.",w:"Recurring items balloon if ignored.",s:"No item without a next action."},
+  "w8-slack":{t:"Free slack",c:"personal",d:"Deliberately unallocated time — rest, or pull a later task forward.",w:"Protecting slack prevents the schedule from silently overfilling.",s:"Used for rest or genuine get-ahead, not backfilled with obligation."},
+  "w9-clean":{t:"Weekly clean + dedusting",c:"clean",d:"Weekly clean plus 3-weekly dedusting.",w:"Baseline upkeep.",s:"Done in ~2.5h."},
+  "w9-admin":{t:"Admin follow-ups",c:"admin",d:"Progress open admin items.",w:"Recurring items balloon if ignored.",s:"No item without a next action."},
+  "w9-contingency":{t:"Contingency",c:"personal",d:"Reserved time for anything that slipped across the two months.",w:"A final buffer means a slip earlier doesn't become a failure.",s:"Any outstanding item closed, or consciously dropped."}
+};
+
+const CAT = {
+  paper:{label:"Paper · you",bg:"#eff6ff",fg:"#2563eb"},
+  partner:{label:"Co-author / dependency",bg:"#ecfeff",fg:"#0891b2"},
+  clean:{label:"Cleaning",bg:"#ecfdf5",fg:"#059669"},
+  admin:{label:"Admin",bg:"#fffbeb",fg:"#d97706"},
+  personal:{label:"Personal project",bg:"#f5f3ff",fg:"#7c3aed"},
+  gate:{label:"Hard gate",bg:"#fef2f2",fg:"#dc2626"}
+};
+
+const overlay=document.getElementById('overlay');
+const elTag=document.getElementById('m-tag');
+const elTitle=document.getElementById('m-title');
+const elWhat=document.getElementById('m-what');
+const elWhy=document.getElementById('m-why');
+const elOk=document.getElementById('m-success');
+
+function openModal(id){
+  const x=DATA[id];
+  if(!x) return;
+  const cat=CAT[x.c]||CAT.paper;
+  elTag.textContent=cat.label;
+  elTag.style.background=cat.bg;
+  elTag.style.color=cat.fg;
+  elTitle.textContent=x.t;
+  elWhat.textContent=x.d;
+  elWhy.textContent=x.w;
+  elOk.textContent=x.s;
+  overlay.hidden=false;
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  overlay.hidden=true;
+  document.body.style.overflow='';
+}
+
+document.querySelectorAll('[data-id]').forEach(el=>{
+  el.addEventListener('click',()=>openModal(el.getAttribute('data-id')));
+});
+document.getElementById('m-close').addEventListener('click',closeModal);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)closeModal();});
+</script>
 </body>
 </html>
