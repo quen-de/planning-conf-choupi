@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two-Month Plan — ECCV Paper (2-person) + Personal Projects</title>
+<style>
+  :root{
+    --paper:#2563eb; --paper-bg:#eff6ff;
+    --clean:#059669; --clean-bg:#ecfdf5;
+    --admin:#d97706; --admin-bg:#fffbeb;
+    --personal:#7c3aed; --personal-bg:#f5f3ff;
+    --partner:#0891b2; --partner-bg:#ecfeff;
+    --gate:#dc2626; --gate-bg:#fef2f2;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --card:#ffffff; --bg:#f9fafb;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;font-size:15px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px;}
+  header h1{font-size:25px;margin:0 0 4px;}
+  header .sub{color:var(--muted);font-size:14px;margin-bottom:20px;}
+  .grid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-bottom:18px;}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr;}}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px 16px;}
+  .box h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .box ul{margin:0;padding-left:17px;}
+  .box li{margin-bottom:6px;font-size:14px;}
+  .budget-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+  .budget-row:last-child{border-bottom:none;font-weight:700;}
+  .partner-alert{background:var(--partner-bg);border:1px solid #a5f3fc;border-left:5px solid var(--partner);
+    border-radius:10px;padding:13px 16px;margin:4px 0 22px;font-size:14px;}
+  .partner-alert b{color:var(--partner);}
+  .legend{display:flex;flex-wrap:wrap;gap:13px;margin:8px 0 26px;font-size:13px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block;}
+  .phase-title{display:flex;align-items:baseline;gap:12px;margin:32px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--ink);}
+  .phase-title h2{margin:0;font-size:19px;}
+  .phase-title .meta{color:var(--muted);font-size:13px;}
+  .week{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--paper);
+    border-radius:10px;padding:15px 17px;margin-bottom:14px;}
+  .week.post{border-left-color:var(--personal);}
+  .week-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;}
+  .week-head .wk{font-weight:700;font-size:16px;}
+  .week-head .dates{color:var(--muted);font-size:13px;margin-left:8px;font-weight:400;}
+  .week-head .theme{font-size:13px;color:var(--paper);font-weight:600;}
+  .week.post .week-head .theme{color:var(--personal);}
+  .milestone{display:flex;align-items:center;gap:8px;background:#f3f4f6;border-radius:7px;
+    padding:7px 11px;margin-bottom:11px;font-size:13px;}
+  .milestone b{color:var(--ink);}
+  .milestone.dep{background:var(--partner-bg);}
+  .milestone.dep b{color:var(--partner);}
+  .lanes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:720px){.lanes{grid-template-columns:1fr;}}
+  .lane{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fcfcfd;}
+  .lane h4{margin:0 0 8px;font-size:13px;display:flex;justify-content:space-between;align-items:center;}
+  .lane h4 .who{font-weight:700;}
+  .lane.you h4 .who{color:var(--paper);}
+  .lane.co h4 .who{color:var(--partner);}
+  .lane h4 .wh{font-weight:600;color:var(--muted);font-size:12px;}
+  table.tasks{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.tasks td{padding:4px 5px;vertical-align:top;border-bottom:1px solid #f3f4f6;}
+  table.tasks tr:last-child td{border-bottom:none;}
+  td.hrs{width:1%;white-space:nowrap;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;}
+  td.ic{width:1%;white-space:nowrap;padding-right:2px;}
+  .pill{display:inline-block;width:9px;height:9px;border-radius:3px;margin-top:4px;}
+  .p-paper{background:var(--paper);} .p-clean{background:var(--clean);}
+  .p-admin{background:var(--admin);} .p-personal{background:var(--personal);}
+  .p-partner{background:var(--partner);}
+  .single-lane{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fcfcfd;}
+  .gate{background:var(--gate-bg);border:1px solid #fecaca;border-left:5px solid var(--gate);
+    border-radius:10px;padding:12px 16px;margin-bottom:14px;}
+  .gate b{color:var(--gate);}
+  .submit{background:#111827;color:#fff;border-radius:10px;padding:15px 17px;margin-bottom:14px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
+  .submit .big{font-size:18px;font-weight:700;}
+  .risk{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;font-size:14px;}
+  .risk h3{margin:0 0 8px;color:var(--admin);font-size:14px;}
+  footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;}
+  @media print{body{background:#fff;}.week,.box,.gate,.submit,.lane{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Two-Month Plan — ECCV "BioImage Computing" Paper (you + co-author) + Personal Projects</h1>
+  <div class="sub">Mon 8 Jun → Fri 7 Aug 2026 &nbsp;·&nbsp; Submission: <b>Mon 13 Jul</b> &nbsp;·&nbsp; Draft-to-supervisors gate: <b>Tue 7 Jul</b> &nbsp;·&nbsp; Written in Word on Google Drive</div>
+</header>
+
+<div class="grid3">
+  <div class="box">
+    <h3>The logic</h3>
+    <ul>
+      <li><b>Total paper work ≈ 68.5h</b> (after your re-sizing of figures, related work and methods).</li>
+      <li><b>You ≈ 56h, co-author ≈ 29h</b> (incl. coordination &amp; integration overhead). You keep the critical path; co-author takes detachable whole-sections.</li>
+      <li><b>Your capacity:</b> 3 days × 6h = 18h/week. <b>Co-author:</b> ~15h/week — mostly held as buffer, not filled.</li>
+      <li><b>Real gate is Tue 7 Jul</b>: complete draft to 2 supervisors, leaving a revision window before the 13 Jul submission.</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>Your sprint week (typical)</h3>
+    <div class="budget-row"><span>Available (3 × 6h)</span><span>18.0 h</span></div>
+    <div class="budget-row"><span>Paper</span><span>~12.0 h</span></div>
+    <div class="budget-row"><span>Cleaning + laundry</span><span>2.0 h</span></div>
+    <div class="budget-row"><span>Admin</span><span>1.0 h</span></div>
+    <div class="budget-row"><span>Buffer</span><span>~3.0 h</span></div>
+    <div class="budget-row"><span>Committed</span><span>~15.0 h</span></div>
+  </div>
+  <div class="box">
+    <h3>Ownership split</h3>
+    <div class="budget-row"><span style="color:var(--paper);font-weight:600">You</span><span>Story · core figures · Methods · Results · Intro · Abstract · assembly · revision · submission</span></div>
+    <div class="budget-row" style="border-bottom:none"><span style="color:var(--partner);font-weight:600">Co-author</span><span>Related Work · secondary figures · Discussion · supp. results · proofread</span></div>
+  </div>
+</div>
+
+<div class="partner-alert">
+  <b>⚑ Top risk — the partner team.</b> You own Methods but depend on the partner team's output, which you must chase. The plan requests it on <b>day 1 (Mon 8 Jun)</b> with a stated deadline of <b>Tue 16 Jun</b> and escalation if it slips. The co-author's spare hours are reserved to absorb this: if the data is late, they take extra figure/writing load so you don't stall.
+</div>
+
+<div class="legend">
+  <span><i class="dot" style="background:var(--paper)"></i> Paper</span>
+  <span><i class="dot" style="background:var(--partner)"></i> Co-author / partner dependency</span>
+  <span><i class="dot" style="background:var(--clean)"></i> Cleaning / laundry</span>
+  <span><i class="dot" style="background:var(--admin)"></i> Admin</span>
+  <span><i class="dot" style="background:var(--personal)"></i> Personal projects</span>
+  <span><i class="dot" style="background:var(--gate)"></i> Hard gate</span>
+</div>
+
+<!-- ============ PHASE 1 ============ -->
+<div class="phase-title">
+  <h2>Phase 1 — Paper sprint (2 people)</h2>
+  <span class="meta">8 Jun → 13 Jul</span>
+</div>
+
+<!-- W1 -->
+<div class="week">
+  <div class="week-head">
+    <div><span class="wk">Week 1</span><span class="dates">Mon 8 – Sun 14 Jun</span></div>
+    <div class="theme">FOUNDATION — lock the story, fire off the partner request</div>
+  </div>
+  <div class="milestone dep"><span>⚑</span><b>Mon 8 Jun:</b>&nbsp;send partner-team data/analysis request with a hard deadline (16 Jun). &nbsp;·&nbsp; <b>Roles locked, shared Word doc live.</b></div>
+  <div class="lanes">
+    <div class="lane you">
+      <h4><span class="who">You</span><span class="wh">~9h paper · 3h personal</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Define narrative + the 2-3 claims (ziram → marker → visual phenotype).</td><td class="hrs">3.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Figure plan: which result → which figure/table.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Request data from partner team; specify exactly what you need + deadline.</td><td class="hrs">1.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Kickoff + agree section ownership with co-author.</td><td class="hrs">1.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Scaffold Methods from known protocols (start before partner data lands).</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Unemployment claim (start now), nursery, health reimbursement.</td><td class="hrs">1.0</td></tr>
+      </table>
+    </div>
+    <div class="lane co">
+      <h4><span class="who">Co-author</span><span class="wh">~7.5h</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Set up Word master doc on Drive, Zotero library, shared folder, section stubs.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Kickoff with you; confirm scope of Related Work + Discussion.</td><td class="hrs">1.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Literature search + Related Work notes.</td><td class="hrs">3.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Begin Related Work write-up.</td><td class="hrs">2.0</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- W2 -->
+<div class="week">
+  <div class="week-head">
+    <div><span class="wk">Week 2</span><span class="dates">Mon 15 – Sun 21 Jun</span></div>
+    <div class="theme">FIGURES + RELATED WORK — the biggest time sink, tackled first</div>
+  </div>
+  <div class="milestone dep"><span>⚑</span><b>Tue 16 Jun:</b>&nbsp;partner data due. If not in hand by Wed, escalate and shift co-author onto extra figures. &nbsp;·&nbsp; <b>Related Work complete.</b></div>
+  <div class="lanes">
+    <div class="lane you">
+      <h4><span class="who">You</span><span class="wh">~12h paper · 3h personal</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Build core/claim figures from raw results (the heavy item).</td><td class="hrs">6.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Methods draft, incorporating partner-team inputs.</td><td class="hrs">3.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Outline + start Results.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Chase partner team if delivery slips.</td><td class="hrs">1.0</td></tr>
+        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      </table>
+    </div>
+    <div class="lane co">
+      <h4><span class="who">Co-author</span><span class="wh">~8h</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Finish Related Work write-up (section complete).</td><td class="hrs">3.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Build secondary / supplementary figures.</td><td class="hrs">4.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Sanity-check your figure plan for consistency.</td><td class="hrs">1.0</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- W3 -->
+<div class="week">
+  <div class="week-head">
+    <div><span class="wk">Week 3</span><span class="dates">Mon 22 – Sun 28 Jun</span></div>
+    <div class="theme">RESULTS + METHODS FINALISE</div>
+  </div>
+  <div class="milestone"><span>★</span><b>End W3 (Sun 28 Jun):</b>&nbsp;co-author sections delivered (Related Work, Discussion draft, secondary figures); Methods &amp; Results drafted.</div>
+  <div class="lanes">
+    <div class="lane you">
+      <h4><span class="who">You</span><span class="wh">~12.75h paper · 3.5h personal</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Results: interpret each figure, correlations + effect sizes, ziram signal.</td><td class="hrs">5.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Finalise Methods (lock once partner inputs confirmed).</td><td class="hrs">5.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Polish core figures + captions.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Sync with co-author; reconcile terminology/notation.</td><td class="hrs">0.75</td></tr>
+        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      </table>
+    </div>
+    <div class="lane co">
+      <h4><span class="who">Co-author</span><span class="wh">~5.25h</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Draft Discussion / Conclusion (limitations, future work).</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Draft supplementary results text.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Polish secondary figures.</td><td class="hrs">1.0</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Sync with you.</td><td class="hrs">0.75</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- W4 -->
+<div class="week">
+  <div class="week-head">
+    <div><span class="wk">Week 4</span><span class="dates">Mon 29 Jun – Sun 5 Jul</span></div>
+    <div class="theme">FULL DRAFT — Intro, Abstract, assemble everything</div>
+  </div>
+  <div class="milestone"><span>★</span><b>Sun 5 Jul:</b>&nbsp;complete, integrated draft done — 2-day cushion before the supervisor gate.</div>
+  <div class="lanes">
+    <div class="lane you">
+      <h4><span class="who">You</span><span class="wh">~11.5h paper · 3h personal</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Introduction (ziram as toxicant, medaka model, the gap).</td><td class="hrs">4.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Write Abstract.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Full read-through + assemble complete draft.</td><td class="hrs">4.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Integrate co-author sections; reconcile flow + terminology.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      </table>
+    </div>
+    <div class="lane co">
+      <h4><span class="who">Co-author</span><span class="wh">~3.5h</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Polish Discussion against the assembled draft.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Internal review of your Methods + Results for clarity.</td><td class="hrs">2.0</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="gate">
+  <b>★ HARD GATE — Tue 7 Jul:</b> complete draft in both supervisors' hands, with a stated "comments by 10 Jul" request. Miss this and the revision window collapses. This is the date that actually matters.
+</div>
+
+<!-- W5 -->
+<div class="week">
+  <div class="week-head">
+    <div><span class="wk">Week 5</span><span class="dates">Mon 6 – Sun 12 Jul</span></div>
+    <div class="theme">REVISION + SUBMIT — crunch week, cleaning &amp; admin dropped</div>
+  </div>
+  <div class="milestone dep"><span>⚑</span><b>Tue 7 Jul</b> send to supervisors &nbsp;·&nbsp; <b>7–10 Jul</b> they review &nbsp;·&nbsp; <b>10–12 Jul</b> you revise.</div>
+  <div class="lanes">
+    <div class="lane you">
+      <h4><span class="who">You</span><span class="wh">~12h paper · 0h personal (dropped)</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Mon–Tue: final polish, then send to supervisors (7 Jul).</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Incorporate supervisor + co-author feedback.</td><td class="hrs">3.5</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Final figures + formatting to workshop spec; page-limit check.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Submission dry-run on the portal (account, metadata, files, supp.).</td><td class="hrs">2.0</td></tr>
+        <tr><td class="ic"><i class="pill p-paper"></i></td><td>Buffer for the inevitable.</td><td class="hrs">2.5</td></tr>
+      </table>
+    </div>
+    <div class="lane co">
+      <h4><span class="who">Co-author</span><span class="wh">~5h</span></h4>
+      <table class="tasks">
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Incorporate feedback on their sections.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Help with final figures / formatting.</td><td class="hrs">1.5</td></tr>
+        <tr><td class="ic"><i class="pill p-partner"></i></td><td>Independent full proofread (fresh eyes) before submission.</td><td class="hrs">2.0</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="submit">
+  <span class="big">▶ Mon 13 Jul — SUBMIT</span>
+  <span>Upload in the morning. Portals slow to a crawl at deadline; do not leave it to the evening.</span>
+</div>
+
+<!-- ============ PHASE 2 ============ -->
+<div class="phase-title">
+  <h2>Phase 2 — Personal projects</h2>
+  <span class="meta">13 Jul → 7 Aug · 15h/week · co-author lane is done</span>
+</div>
+
+<!-- W6 -->
+<div class="week post">
+  <div class="week-head">
+    <div><span class="wk">Week 6</span><span class="dates">Mon 13 – Sun 19 Jul</span></div>
+    <div class="theme">RECOVER + start painting</div>
+  </div>
+  <div class="single-lane">
+    <table class="tasks">
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Paint stairs — prep + sessions 1-2 (sanding, masking, first coats).</td><td class="hrs">4.0</td></tr>
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture: resume planning/buying (recurring 2h slot, now active).</td><td class="hrs">2.0</td></tr>
+      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- W7 -->
+<div class="week post">
+  <div class="week-head">
+    <div><span class="wk">Week 7</span><span class="dates">Mon 20 – Sun 26 Jul</span></div>
+    <div class="theme">FINISH painting + furniture</div>
+  </div>
+  <div class="single-lane">
+    <table class="tasks">
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Paint stairs — sessions 3-4 (second coats, touch-ups, reassemble).</td><td class="hrs">4.0</td></tr>
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture: order / collect / assemble.</td><td class="hrs">2.0</td></tr>
+      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- W8 -->
+<div class="week post">
+  <div class="week-head">
+    <div><span class="wk">Week 8</span><span class="dates">Mon 27 Jul – Sun 2 Aug</span></div>
+    <div class="theme">CATCH-UP + slack</div>
+  </div>
+  <div class="single-lane">
+    <table class="tasks">
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Furniture wrap-up; overflow from painting if needed.</td><td class="hrs">2.0</td></tr>
+      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry.</td><td class="hrs">2.0</td></tr>
+      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Free slack — rest, or pull anything forward.</td><td class="hrs">—</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- W9 -->
+<div class="week post">
+  <div class="week-head">
+    <div><span class="wk">Week 9</span><span class="dates">Mon 3 – Fri 7 Aug</span></div>
+    <div class="theme">BUFFER (partial week)</div>
+  </div>
+  <div class="single-lane">
+    <table class="tasks">
+      <tr><td class="ic"><i class="pill p-clean"></i></td><td>Vacuum + floors + bathroom + laundry <b>+ dedusting</b>.</td><td class="hrs">2.5</td></tr>
+      <tr><td class="ic"><i class="pill p-admin"></i></td><td>Admin follow-ups.</td><td class="hrs">1.0</td></tr>
+      <tr><td class="ic"><i class="pill p-personal"></i></td><td>Contingency for anything that slipped.</td><td class="hrs">—</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="risk">
+  <h3>Watch these — where this plan breaks</h3>
+  <ul style="margin:0;padding-left:18px;">
+    <li><b>Partner team is your #1 risk.</b> Request day 1, deadline 16 Jun, escalate immediately if late. Their slip cascades into Methods → Results → draft. Keep co-author capacity free to backfill.</li>
+    <li><b>Figures (W2) overrun.</b> Raw-results-to-figure always balloons. If they eat your buffer, hand more secondary figures to the co-author rather than slipping Results.</li>
+    <li><b>Section interfaces.</b> The split only saves time if Related Work / Methods / Discussion boundaries are agreed at the W1 kickoff. Vague ownership creates rework.</li>
+    <li><b>Supervisor turnaround.</b> Two reviewers, one shared deadline (10 Jul). Tell them the date in writing; chase on 9 Jul if silent.</li>
+    <li><b>Behind by end of W3?</b> Drop the W4 personal block too and consider a 4th work-day for W4-W5 only. Painting/furniture do not move earlier than 13 Jul under any circumstances.</li>
+  </ul>
+</div>
+
+<footer>Generated 7 Jun 2026 · estimates deliberately conservative · adjust as reality lands. Partner-team deliverable + lead time are assumed — confirm and I will re-time the dependency.</footer>
+
+</div>
+</body>
+</html>
